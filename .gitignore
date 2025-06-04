@@ -83,3 +83,22 @@ crashlytics-build.properties
 /[Aa]ssets/Unity.VisualScripting.Generated/VisualScripting.Flow/UnitOptions.db.meta
 /[Aa]ssets/Unity.VisualScripting.Generated/VisualScripting.Core/Property Providers
 /[Aa]ssets/Unity.VisualScripting.Generated/VisualScripting.Core/Property Providers.meta
+
+# 무시 대상이 될 하위 Unity 프로젝트들
+*/[Ll]ibrary/
+*/[Tt]emp/
+*/[Oo]bj/
+*/[Bb]uild/
+*/[Bb]uilds/
+*/[Ll]ogs/
+*/[Uu]ser[Ss]ettings/
+*.log
+
+# 모든 하위 폴더들까지 포함 (n단계까지)
+**/[Ll]ibrary/
+**/[Tt]emp/
+**/[Oo]bj/
+**/[Bb]uild/
+**/[Bb]uilds/
+**/[Ll]ogs/
+**/[Uu]ser[Ss]ettings/
