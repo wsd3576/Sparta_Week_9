@@ -1,13 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyControllor : BaseControllor
+public class EnemyController : BaseControllor
 {
+    [SerializeField] private float followRange = 15f;
     private EnemyManager enemyManager;
     private Transform target;
 
-    [SerializeField] private float followRange = 15f;
+    private void OnDrawGizmos()
+    {
+        if (!Application.isPlaying) return;
+
+        Vector2 start = transform.position;
+        var direction = lookDirection;
+        var distance = weaponHandler.AttackRange * 1.5f;
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(start, start + direction.normalized * distance);
+    }
 
     public void Init(EnemyManager enemyManager, Transform target)
     {
@@ -35,26 +44,24 @@ public class EnemyControllor : BaseControllor
             return;
         }
 
-        float distance = DistanceToTarget();
-        Vector2 direction = DirectionToTarget();
+        var distance = DistanceToTarget();
+        var direction = DirectionToTarget();
 
         isAttacking = false;
 
-        if(distance <= followRange)
+        if (distance <= followRange)
         {
             lookDirection = direction;
 
-            if(distance < weaponHandler.AttackRange)
+            if (distance < weaponHandler.AttackRange)
             {
                 int layerMaskTarget = weaponHandler.target;
-                RaycastHit2D hit = Physics2D.Raycast(
+                var hit = Physics2D.Raycast(
                     transform.position, direction, weaponHandler.AttackRange * 1.5f,
-                    (1<<LayerMask.NameToLayer("Level")) | layerMaskTarget);
+                    (1 << LayerMask.NameToLayer("Level")) | layerMaskTarget);
 
                 if (hit.collider != null && layerMaskTarget == (layerMaskTarget | (1 << hit.collider.gameObject.layer)))
-                {
                     isAttacking = true;
-                }
 
                 movementDirection = Vector2.zero;
                 return;
@@ -68,17 +75,5 @@ public class EnemyControllor : BaseControllor
     {
         base.Death();
         enemyManager.RemoveEnemyOnDeath(this);
-    }
-
-    private void OnDrawGizmos()
-    {
-        if (!Application.isPlaying) return;
-
-        Vector2 start = transform.position;
-        Vector2 direction = lookDirection;
-        float distance = weaponHandler.AttackRange * 1.5f;
-
-        Gizmos.color = Color.red;
-        Gizmos.DrawLine(start, start + direction.normalized * distance);
     }
 }

@@ -183,14 +183,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 064b406bba51ac249ab53140af2a438b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delay: 0.5
-  weaponSize: 0.8
-  power: 3.39
-  speed: 9.98
-  attackRange: 1.23
+  delay: 0.2
+  weaponSize: 1
+  power: 2
+  speed: 10
+  attackRange: 3
   target:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 128
   isOnKnockback: 1
   knockbackPower: 0.48
   knockbackTime: 0.5
