@@ -27,7 +27,8 @@ public class PlayerIdleState : PlayerGroundState
 
         if (stateMachine.MoveInput != Vector2.zero)
         {
-            //stateMachine.ChangeState(stateMachine.);
+            stateMachine.ChangeState(stateMachine.WalkState);
+            return;
         }
     }
 }
