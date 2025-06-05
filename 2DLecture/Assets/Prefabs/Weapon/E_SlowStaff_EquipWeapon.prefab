@@ -196,7 +196,7 @@ MonoBehaviour:
   knockbackTime: 2
   attackSoundClip: {fileID: 8300000, guid: 384def08422bdb0499004bce760f58f2, type: 3}
   bulletSpawnPosition: {fileID: 1923394057226723779}
-  bulletIndex: 1
+  bulletPrefab: {fileID: 9008579907958036328, guid: 6846f025d85eff546809f78e6f313a79, type: 3}
   bulletSize: 1
   bulletLifeTime: 5
   spread: 1

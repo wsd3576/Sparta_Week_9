@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -41,5 +42,24 @@ public class PlayerController : BaseControllor
     {
         if (EventSystem.current.IsPointerOverGameObject()) return;
         isAttacking = inputValue.isPressed;
+    }
+
+    public void UseItem(ItemData itemData)
+    {
+        foreach (var modifier in itemData.stats)
+        {
+            statHandler.ModifyStat(modifier.statType, modifier.baseValue, itemData.isTemporary, itemData.duration);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.TryGetComponent<ItemHandler>(out ItemHandler itemHandler))
+        {
+            if (itemHandler.ItemData == null) return;
+            
+            UseItem(itemHandler.ItemData);
+            itemHandler.OnDespawn();
+        }
     }
 }

@@ -867,8 +867,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69775c2743d81764ba905f1b929d22d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 10
-  speed: 3
+  statData: {fileID: 11400000, guid: f0cb5426835db79498be959c0ebcf9ad, type: 2}
 --- !u!114 &63497363
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9482,6 +9481,55 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1372302176}
   m_CullTransparentMesh: 1
+--- !u!1 &1436591530
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1436591531}
+  - component: {fileID: 1436591532}
+  m_Layer: 0
+  m_Name: ObjectPoolManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1436591531
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1436591530}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1473259059}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1436591532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1436591530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b64c583a413a464d90351c2c8829d70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabs:
+  - {fileID: 9008579907958036328, guid: 28d1d1ab915378140aa21260903f52ff, type: 3}
+  - {fileID: 9008579907958036328, guid: 6846f025d85eff546809f78e6f313a79, type: 3}
+  - {fileID: 6687897655863764542, guid: 565e45ba6b0a9784db0c94954c1515de, type: 3}
+  - {fileID: 7333570543229733674, guid: a55b5680263169f4abdfc7b5022f267f, type: 3}
 --- !u!1 &1473259057
 GameObject:
   m_ObjectHideFlags: 0
@@ -9529,6 +9577,7 @@ Transform:
   - {fileID: 1606824733}
   - {fileID: 877933754}
   - {fileID: 1730783592}
+  - {fileID: 1436591531}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1504340238
@@ -14847,6 +14896,9 @@ MonoBehaviour:
   gizmoColor: {r: 1, g: 0, b: 0, a: 0.3}
   timeBetweenSpawns: 0.2
   timeBetweenWaves: 1
+  itemPrefabs:
+  - {fileID: 6687897655863764542, guid: 565e45ba6b0a9784db0c94954c1515de, type: 3}
+  - {fileID: 7333570543229733674, guid: a55b5680263169f4abdfc7b5022f267f, type: 3}
 --- !u!4 &1606824733
 Transform:
   m_ObjectHideFlags: 0
@@ -20495,7 +20547,7 @@ GameObject:
   - component: {fileID: 2126054853}
   - component: {fileID: 2126054852}
   - component: {fileID: 2126054851}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: Collision
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -5,12 +5,12 @@ public class CameraController : MonoBehaviour
 {
     [SerializeField] private CinemachineBasicMultiChannelPerlin perlin;
     [SerializeField] private CinemachineVirtualCamera virtualCamera;
+    private bool isInit;
     private float shakeTimeRemaining;
 
-    private void Reset()
+    private void Awake()
     {
-        virtualCamera = GetComponent<CinemachineVirtualCamera>();
-        perlin = virtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+        if (!isInit) Init();
     }
 
     private void Update()
@@ -23,9 +23,18 @@ public class CameraController : MonoBehaviour
         }
     }
 
+    private void Init()
+    {
+        virtualCamera = GetComponent<CinemachineVirtualCamera>();
+        perlin = virtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+        isInit = true;
+    }
+
 
     public void ShakeCamera(float duration, float amplitude, float frequency)
     {
+        if (!isInit) Init();
+
         if (shakeTimeRemaining > duration) return;
 
         shakeTimeRemaining = duration;

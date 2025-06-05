@@ -20,6 +20,8 @@ public class EnemyManager : MonoBehaviour
     private GameManager gameManager;
     private Coroutine waveRoutine;
 
+    [SerializeField] private List<GameObject> itemPrefabs;
+
     private void OnDrawGizmosSelected()
     {
         if (spawnAreas == null) return;
@@ -106,22 +108,33 @@ public class EnemyManager : MonoBehaviour
     public void RemoveEnemyOnDeath(EnemyController enemy)
     {
         activeEnemies.Remove(enemy);
+        
+        CreateRandomItem(enemy.transform.position);
+        
         if (enemySpawnComplite && activeEnemies.Count == 0)
             gameManager.EndOfWave();
     }
 
-    public void StartStage(WaveData waveData)
+    public void CreateRandomItem(Vector3 position)
+    {
+        int itemIndex = itemPrefabs[Random.Range(0, itemPrefabs.Count)].GetComponent<IIndexable>().ObjectIndex;
+        GameObject item = ObjectPoolManager.Instance.GetObject(itemIndex, position, Quaternion.identity);
+    }
+
+    public void StartStage(StageInstance stageInstance)
     {
         if (waveRoutine != null)
             StopCoroutine(waveRoutine);
 
-        waveRoutine = StartCoroutine(SpawnStart(waveData));
+        waveRoutine = StartCoroutine(SpawnStart(stageInstance));
     }
 
-    private IEnumerator SpawnStart(WaveData waveData)
+    private IEnumerator SpawnStart(StageInstance stageInstance)
     {
         enemySpawnComplite = false;
         yield return new WaitForSeconds(timeBetweenWaves);
+
+        var waveData = stageInstance.currentStageInfo.waves[stageInstance.currentWave];
 
         for (var i = 0; i < waveData.monsters.Length; i++)
         {

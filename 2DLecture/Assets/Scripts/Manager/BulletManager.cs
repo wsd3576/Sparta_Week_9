@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,16 +11,24 @@ public class BulletManager : MonoBehaviour
     [SerializeField] private GameObject[] bulletPrefabs;
 
     [SerializeField] private ParticleSystem impactParticleSystem;
+    
+    ObjectPoolManager objectPoolManager;
 
     private void Awake()
     {
         instance = this;
     }
 
+    private void Start()
+    {
+        objectPoolManager = ObjectPoolManager.Instance;
+    }
+
     public void ShootBullet(RangeWeaponHandler rangeWeaponHandler, Vector2 startPosition, Vector2 direction)
     {
-        GameObject origin = bulletPrefabs[rangeWeaponHandler.BulletIndex];
-        GameObject obj = Instantiate(origin, startPosition, Quaternion.identity);
+        // GameObject origin = bulletPrefabs[rangeWeaponHandler.BulletIndex];
+        // GameObject obj = Instantiate(origin, startPosition, Quaternion.identity);
+        GameObject obj = objectPoolManager.GetObject(rangeWeaponHandler.BulletIndex, startPosition, Quaternion.identity);
 
         BulletController bulletController = obj.GetComponent<BulletController>();
         bulletController.Init(direction, rangeWeaponHandler, this);

@@ -6,8 +6,9 @@ public class RangeWeaponHandler : WeaponHandler
 {
     [Header("Ranged Attack Data")]
     [SerializeField] private Transform bulletSpawnPosition;
-
-    [SerializeField] private int bulletIndex;
+    
+    [SerializeField] private GameObject bulletPrefab;
+    private int bulletIndex;
     public int BulletIndex { get => bulletIndex; }
 
     [SerializeField] private float bulletSize = 1f;
@@ -29,24 +30,28 @@ public class RangeWeaponHandler : WeaponHandler
     public Color BulletColor { get => bulletColor; }
 
     private BulletManager bulletManager;
+    
+    private StatHandler statHandler;
 
     protected override void Start()
     {
         base.Start();
         bulletManager = BulletManager.Instance;
+        statHandler = GetComponentInParent<StatHandler>();
+        bulletIndex = bulletPrefab.GetComponent<IIndexable>().ObjectIndex;
     }
     public override void Attack()
     {
         base.Attack();
 
         float bulletAngleSpace = multipleBulletAngle;
-        int numberOfbulletPerShot = bulletPerShot;
+        int numberOfbulletPerShot = bulletPerShot + (int)statHandler.GetStat(StatType.BulletCount);
 
         float minAngle = -(numberOfbulletPerShot / 2f) * bulletAngleSpace;
 
         for (int i = 0; i < numberOfbulletPerShot; i++)
         {
-            float angle = minAngle * bulletAngleSpace * i;
+            float angle = minAngle + bulletAngleSpace * i;
             float randomSpread = Random.Range(-spread, spread);
             angle += randomSpread;
             CreateBullet(controllor.LookDirection, angle);
@@ -67,3 +72,4 @@ public class RangeWeaponHandler : WeaponHandler
         return Quaternion.Euler(0, 0, degree) * v;
     }
 }
+

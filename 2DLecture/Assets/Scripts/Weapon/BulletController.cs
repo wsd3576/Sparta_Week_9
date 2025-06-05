@@ -1,8 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
-public class BulletController : MonoBehaviour
+public class BulletController : MonoBehaviour, IPoolable, IIndexable
 {
     [SerializeField] private LayerMask levelCollisionLayer;
     
@@ -19,6 +18,12 @@ public class BulletController : MonoBehaviour
     public bool fxOnDestroy = true;
 
     BulletManager bulletManager;
+    
+    [Range(0, 99)]
+    [SerializeField] private int bulletIndex;
+    public int ObjectIndex => bulletIndex;
+    
+    private Action<GameObject> returnToPool;
 
     private void Awake()
     {
@@ -88,6 +93,21 @@ public class BulletController : MonoBehaviour
     {
         if (createFx) bulletManager.CreateImpactParticlesAtPosition(position, rangeWeaponHandler);
 
-        Destroy(this.gameObject);
+        OnDespawn();
+    }
+
+    public void Initialize(Action<GameObject> reaturnAction)
+    {
+        returnToPool = reaturnAction;
+    }
+
+    public void OnSpawn()
+    {
+        
+    }
+
+    public void OnDespawn()
+    {
+        returnToPool?.Invoke(gameObject);
     }
 }
