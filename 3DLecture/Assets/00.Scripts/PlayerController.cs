@@ -7,8 +7,8 @@ public class PlayerController : MonoBehaviour
 {
     public PlayerInputs playerInputs {get; private set;}
     public PlayerInputs.InGameActions inGameActions {get; private set;}
-    
-    void Start()
+
+    private void Awake()
     {
         playerInputs = new PlayerInputs();
         inGameActions = playerInputs.InGame;
