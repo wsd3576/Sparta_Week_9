@@ -85,6 +85,6 @@ public class PlayerComboAttackState : PlayerAttackState
         alreadyApplyForce = true;
 
         stateMachine.Player.ForceReciver.ResetForce();
-        stateMachine.Player.ForceReciver.AddForce(stateMachine.Player.gameObject.transform.forward * attackInfoData.Force);
+        stateMachine.Player.ForceReciver.AddForce(stateMachine.Player.transform.forward * attackInfoData.Force);
     }
 }
