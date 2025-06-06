@@ -13,14 +13,14 @@ public class EnemyBaseState : IState
         groundData = stateMachine.Enemy.Data.GroundData;
     }
     
-    public void Enter() { }
-    public void Exit() { }
-    public void HandleInput() { }
-    public void PhysicsUpdate() { }
+    public virtual void Enter() { }
+    public virtual void Exit() { }
+    public virtual void HandleInput() { }
+    public virtual void PhysicsUpdate() { }
     
-    public void Update()
+    public virtual void Update()
     {
-        throw new System.NotImplementedException();
+        Move();
     }
     
     protected void StartAnimation(int animatorHash)
@@ -96,6 +96,8 @@ public class EnemyBaseState : IState
 
     protected bool IsPlayerDetected()
     {
+        if (stateMachine.Target.IsDead) return false;
+        
         float playerDistanceSqr =
             (
                 stateMachine.Target.transform.position

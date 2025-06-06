@@ -9,20 +9,29 @@ public class Enemy : MonoBehaviour
     [field: Header("Animation")]
     [field : SerializeField] public PlayerAnimationData AnimationData {get; private set;}
 
-    public Animator Animator {get; private set;}
+    [field : SerializeField] public Animator Animator {get; private set;}
     
-    public CharacterController Controller {get; private set;}
-    public ForceReciver ForceReciver {get; private set;}
+    [field : SerializeField] public CharacterController Controller {get; private set;}
+    [field : SerializeField] public ForceReciver ForceReciver {get; private set;}
+    [field : SerializeField] public Weapon Weapon { get; private set; }
     
     private EnemyStateMachine stateMachine;
+
+    private void Reset()
+    {
+        Animator = GetComponentInChildren<Animator>();
+        Controller = GetComponent<CharacterController>();
+        ForceReciver = GetComponent<ForceReciver>();
+        
+        Weapon = GetComponentInChildren<Weapon>();
+    }
 
     private void Awake()
     {
         AnimationData.Initialize();
         
-        Animator = GetComponentInChildren<Animator>();
-        Controller = GetComponent<CharacterController>();
-        ForceReciver = GetComponent<ForceReciver>();
+        Weapon.SetAttack(Data.Damage, Data.Force);
+        Weapon.gameObject.SetActive(false);
         
         stateMachine = new EnemyStateMachine(this);
     }

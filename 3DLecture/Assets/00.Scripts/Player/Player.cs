@@ -9,21 +9,26 @@ public class Player : MonoBehaviour
     [field: Header("Animation")]
     [field : SerializeField] public PlayerAnimationData AnimationData {get; private set;}
 
-    public Animator Animator {get; private set;}
-    public PlayerController Input {get; private set;}
-    public CharacterController Controller {get; private set;}
-    public ForceReciver ForceReciver {get; private set;}
+    [field : SerializeField] public Animator Animator {get; private set;}
+    [field : SerializeField] public PlayerController Input {get; private set;}
+    [field : SerializeField] public CharacterController Controller {get; private set;}
+    [field : SerializeField] public ForceReciver ForceReciver {get; private set;}
+    [field : SerializeField] public Health Health {get; private set;}
     
     private PlayerStateMachine stateMachine;
 
-    private void Awake()
+    private void Reset()
     {
-        AnimationData.Initialize();
-        
         Animator = GetComponentInChildren<Animator>();
         Input = GetComponent<PlayerController>();
         Controller = GetComponent<CharacterController>();
         ForceReciver = GetComponent<ForceReciver>();
+        Health = GetComponent<Health>();
+    }
+
+    private void Awake()
+    {
+        AnimationData.Initialize();
         
         stateMachine = new PlayerStateMachine(this);
     }
@@ -32,6 +37,7 @@ public class Player : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         stateMachine.ChangeState(stateMachine.IdleState);
+        Health.OnDie += OnDie;
     }
 
     private void Update()
@@ -43,5 +49,11 @@ public class Player : MonoBehaviour
     private void FixedUpdate()
     {
         stateMachine.PhysicsUpdate();
+    }
+
+    private void OnDie()
+    {
+        Animator.SetTrigger("Die");
+        enabled = false;
     }
 }
