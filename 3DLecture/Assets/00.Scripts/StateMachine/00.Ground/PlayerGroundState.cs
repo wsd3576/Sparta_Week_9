@@ -24,13 +24,22 @@ public class PlayerGroundState : PlayerBaseState
     public override void Update()
     {
         base.Update();
-        
+
+        if (stateMachine.IsAttacking)
+        {
+            OnAttack();
+            return;
+        }
     }
 
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
-        
+
+        if (!stateMachine.Player.Controller.isGrounded && stateMachine.Player.Controller.velocity.y < Physics.gravity.y * Time.fixedDeltaTime)
+        {
+            stateMachine.ChangeState(stateMachine.FallState);
+        }
     }
 
     protected override void MovementCanceled(InputAction.CallbackContext context)
@@ -40,5 +49,16 @@ public class PlayerGroundState : PlayerBaseState
         stateMachine.ChangeState(stateMachine.IdleState);
         
         base.MovementCanceled(context);
+    }
+
+    protected override void OnJumpStarted(InputAction.CallbackContext context)
+    {
+        base.OnJumpStarted(context);
+        stateMachine.ChangeState(stateMachine.JumpState);
+    }
+
+    protected virtual void OnAttack()
+    {
+        stateMachine.ChangeState(stateMachine.ComboAttackState);
     }
 }

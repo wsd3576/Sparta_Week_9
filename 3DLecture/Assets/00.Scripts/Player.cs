@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     public Animator Animator {get; private set;}
     public PlayerController Input {get; private set;}
     public CharacterController Controller {get; private set;}
+    public ForceReciver ForceReciver {get; private set;}
     
     private PlayerStateMachine stateMachine;
 
@@ -22,6 +23,7 @@ public class Player : MonoBehaviour
         Animator = GetComponentInChildren<Animator>();
         Input = GetComponent<PlayerController>();
         Controller = GetComponent<CharacterController>();
+        ForceReciver = GetComponent<ForceReciver>();
         
         stateMachine = new PlayerStateMachine(this);
         stateMachine.ChangeState(stateMachine.IdleState);
