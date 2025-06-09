@@ -32,9 +32,9 @@ public class UIMainMenu : MonoBehaviour
         playerDescriptionText = transform.Find("InfoPanel/Description").GetComponent<TextMeshProUGUI>();
         playerMoneyText = transform.Find("MoneyPanel/MoneyText").GetComponent<TextMeshProUGUI>();
         
-        statusButton = transform.Find("Buttons/StatusButton").GetComponent<Button>();
-        inventoryButton = transform.Find("Buttons/InventoryButton").GetComponent<Button>();
-        backButton = transform.Find("Buttons/BackButton").GetComponent<Button>();
+        statusButton = transform.Find("StatusButton").GetComponent<Button>();
+        inventoryButton = transform.Find("InventoryButton").GetComponent<Button>();
+        backButton = transform.Find("BackButton").GetComponent<Button>();
         
         backButton.gameObject.SetActive(false);
     }
