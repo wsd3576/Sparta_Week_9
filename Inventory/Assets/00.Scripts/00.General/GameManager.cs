@@ -23,8 +23,24 @@ public class GameManager : MonoBehaviour
 
     public void SetData()
     {
-        Player = new GameObject("Player").AddComponent<Character>();
+        Player = FindObjectOfType<Character>();
+        if (Player == null)
+        {
+            Player = new GameObject("Player").AddComponent<Character>();
+        }
 
+        List<Item> items = new List<Item>()
+        {
+            new Item("대충 무기", ItemType.Weapon, 10),
+            new Item("대충 방어구", ItemType.Armor, 10),
+            new Item("대충 악세서리", ItemType.Accessory, 10),
+        };
+
+        foreach (Item item in items)
+        {
+            UIManager.Instance.Inventory.AddItem(item);
+        }
+        
         Player.Initialize
         (
             "스탠다드",
@@ -37,7 +53,8 @@ public class GameManager : MonoBehaviour
             10,
             5,
             100,
-            25
+            25,
+            items
         );
 
         UIManager.Instance.MainMenu.UpdateMainMenuUI(Player);

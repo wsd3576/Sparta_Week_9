@@ -7,7 +7,9 @@ public class UISlot : MonoBehaviour
 {
     [SerializeField] private Image icon;
     [SerializeField] private GameObject equipIcon;
-    //[SerializeField] private ItemData itemData;
+    [SerializeField] private Item itemData;
+    [SerializeField] private bool isItemExist = false;
+    
 
     private void Reset()
     {
@@ -15,15 +17,52 @@ public class UISlot : MonoBehaviour
         equipIcon = transform.Find("EquipIcon").gameObject;
         equipIcon.SetActive(false);
     }
-    
-    // public void SetItem(ItemData itemData)
-    // {
-    //      this.itemData = itemData;
-    //      icon.sprite = itemData.icon;
-    // }
 
-    public void RefreshUI()
+    private void OnEnable()
     {
+        RefreshUI();
+    }
+    
+    public bool HasItem()
+    {
+        return isItemExist;
+    }
+
+    public void SetItem(Item itemData)
+    {
+        this.itemData = itemData;
         
+        if (itemData == null)
+        {
+            isItemExist = false;
+        }
+        else
+        {
+            isItemExist = true;
+        }
+        
+        RefreshUI();
+    }
+
+    private void RefreshUI()
+    {
+        if (!isItemExist)
+        {
+            icon.enabled = false;
+            equipIcon.SetActive(false);
+        }
+        else
+        {
+            icon.enabled = true;
+            //아이템 아이콘 적용
+            if (itemData.equiped)
+            {
+                equipIcon.SetActive(true);
+            }
+            else
+            {
+                equipIcon.SetActive(false);
+            }
+        }
     }
 }
