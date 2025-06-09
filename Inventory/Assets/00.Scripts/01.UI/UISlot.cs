@@ -34,25 +34,18 @@ public class UISlot : MonoBehaviour
 
     private void UseItem()
     {
+        if (itemData == null) return;
         switch (itemData.equiped)
         {
             case false: 
                 GameManager.Instance.Player.EquipItem(itemData);
-                itemData.equiped = true;
                 break;
             case true :
                 GameManager.Instance.Player.UnequipItem(itemData);
-                itemData.equiped = false;
                 break;
         }
-        RefreshUI();
     }
-
-    public bool HasItem()
-    {
-        return isItemExist;
-    }
-
+    
     public void SetItem(Item itemData)
     {
         this.itemData = itemData;
@@ -69,7 +62,7 @@ public class UISlot : MonoBehaviour
         RefreshUI();
     }
 
-    private void RefreshUI()
+    public void RefreshUI()
     {
         if (!isItemExist)
         {

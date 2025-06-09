@@ -35,8 +35,6 @@ public class UIMainMenu : MonoBehaviour
         statusButton = transform.Find("StatusButton").GetComponent<Button>();
         inventoryButton = transform.Find("InventoryButton").GetComponent<Button>();
         backButton = transform.Find("BackButton").GetComponent<Button>();
-        
-        backButton.gameObject.SetActive(false);
     }
 
     private void Start()

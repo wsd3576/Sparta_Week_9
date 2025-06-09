@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
 
         foreach (Item item in items)
         {
-            UIManager.Instance.Inventory.AddItem(item);
+            Player.AddItem(item);
         }
         
         Player.Initialize
@@ -50,8 +50,7 @@ public class GameManager : MonoBehaviour
             10,
             5,
             100,
-            25,
-            items
+            25
         );
 
         UIManager.Instance.MainMenu.UpdateMainMenuUI(Player);

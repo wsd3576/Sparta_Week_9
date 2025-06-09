@@ -9,7 +9,8 @@ public class UIInventory : MonoBehaviour
     [SerializeField] private TextMeshProUGUI allSlotText;
     
     [SerializeField] private UISlot slotPrefab;
-    [SerializeField] private List<UISlot> slotList = new List<UISlot>();
+    private List<UISlot> emptySlots = new List<UISlot>();
+    private Dictionary<Item, UISlot> itemSlots = new Dictionary<Item, UISlot>();
     [SerializeField] private Transform slotParent;
 
     [SerializeField] private int usedSlotCount = 0;
@@ -19,16 +20,20 @@ public class UIInventory : MonoBehaviour
     
     public void AddItem(Item item)
     {
-        foreach (UISlot slot in slotList)
+        if (emptySlots.Count == 0)
         {
-            if (!slot.HasItem())
-            {
-                slot.SetItem(item);
-                usedSlotCount++;
-                usedSlotText.text = usedSlotCount.ToString();
-                return;
-            }
+            Debug.LogWarning("빈 슬롯 없음");
+            return;
         }
+        
+        UISlot slot = emptySlots[0];
+        emptySlots.Remove(slot);
+        
+        slot.SetItem(item);
+        itemSlots[item] = slot;
+        
+        usedSlotCount++;
+        usedSlotText.text = usedSlotCount.ToString();
     }
     
     public void InitInventoryUI()
@@ -43,9 +48,18 @@ public class UIInventory : MonoBehaviour
         for (int i = 0; i < slotCount; i++)
         {
             UISlot slot = Instantiate(slotPrefab, slotParent);
-            slotList.Add(slot);
+            slot.SetItem(null);
+            emptySlots.Add(slot);
         }
         
         allSlotText.text = "/ " + slotCount.ToString();
+    }
+
+    public void UpdateSlotUI(Item itemData)
+    {
+        if (itemSlots.TryGetValue(itemData, out UISlot slot))
+        {
+            slot.RefreshUI();
+        }
     }
 }
