@@ -16,33 +16,27 @@ public class UIState : MonoBehaviour
 {
     [SerializeField] private StateType stateType;
     [SerializeField] private TextMeshProUGUI valueText;
-    public Action updateAction;
 
     private void Reset()
     {
         valueText = transform.Find("StateValue").GetComponent<TextMeshProUGUI>();
     }
 
-    private void Awake()
-    {
-        updateAction += StateUpdate;
-    }
-
-    private void StateUpdate()
+    public void StateUpdate(Character player)
     {
         switch (stateType)
         {
             case StateType.Attack:
-                valueText.text = Character.Instance.Attack.ToString();
+                valueText.text = player.attack.ToString();
                 break;
             case StateType.Defense:
-                valueText.text = Character.Instance.Defense.ToString();
+                valueText.text = player.defense.ToString();
                 break;
             case StateType.Health:
-                valueText.text = Character.Instance.Health.ToString();
+                valueText.text = player.health.ToString();
                 break;
             case StateType.Critical:
-                valueText.text = Character.Instance.Critical.ToString();
+                valueText.text = player.critical.ToString();
                 break;
         }
     }

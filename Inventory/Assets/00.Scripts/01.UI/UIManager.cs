@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
-    public static UIManager Instance { get; private set; }
+    public static UIManager Instance{get; private set;}
     
     [SerializeField] private UIMainMenu mainMenu;
     public UIMainMenu MainMenu => mainMenu;
@@ -16,24 +16,21 @@ public class UIManager : MonoBehaviour
     
     private void Reset()
     {
-        mainMenu = FindAnyObjectByType<UIMainMenu>();
-        status = FindAnyObjectByType<UIStatus>();
-        inventory = FindAnyObjectByType<UIInventory>();
-        
-        status.gameObject.SetActive(false);
-        inventory.gameObject.SetActive(false);
+        mainMenu = FindAnyObjectByType<UIMainMenu>(FindObjectsInactive.Include);
+        status = FindAnyObjectByType<UIStatus>(FindObjectsInactive.Include);
+        inventory = FindAnyObjectByType<UIInventory>(FindObjectsInactive.Include);
     }
 
     private void Awake()
     {
-        if(Instance == null)
-        {
-            Instance = this;
-        }
-        else
+        if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
+            return;
         }
+
+        Instance = this;
+        
         status.gameObject.SetActive(false);
         inventory.gameObject.SetActive(false);
     }

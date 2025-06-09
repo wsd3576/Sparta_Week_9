@@ -39,11 +39,33 @@ public class UIMainMenu : MonoBehaviour
         backButton.gameObject.SetActive(false);
     }
 
-    private void Awake()
+    private void Start()
     {
         statusButton.onClick.AddListener(OpenStatus);
         inventoryButton.onClick.AddListener(OpenInventory);
         backButton.onClick.AddListener(OpenMainMenu);
+    }
+
+    public void UpdateMainMenuUI(Character player)
+    {
+        playerClassText.text = player.characterClass;
+        playerNameText.text = player.characterName;
+        playerDescriptionText.text = player.description;
+        
+        string level = (player.level < 10? "0" + player.level : player.level.ToString());
+        playerLevelText.text = lv + level;
+        string curExp = (player.curExp < 10? "0" + player.curExp : player.curExp.ToString());
+        string requireExp = player.requiredExp.ToString();
+        playerExpText.text = $"{curExp}/{requireExp}";
+
+        string unitMoney = GetUnitMoneyString(player.money);
+        playerMoneyText.text = unitMoney;
+    }
+
+    private string GetUnitMoneyString(int rawMoney)
+    {
+        string unitMoney = rawMoney.ToString("N0");
+        return unitMoney;
     }
     
     private void SetButtons(bool isMainMenu = false)

@@ -20,11 +20,11 @@ public class UIStatus : MonoBehaviour
         }
     }
 
-    public void UpdateStates()
+    public void UpdateStateUI(Character player)
     {
         foreach (UIState state in States)
         {
-            state.updateAction?.Invoke();
+            state.StateUpdate(player);
         }
     }
 }
