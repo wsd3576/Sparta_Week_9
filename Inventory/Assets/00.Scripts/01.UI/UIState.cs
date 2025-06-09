@@ -24,20 +24,38 @@ public class UIState : MonoBehaviour
 
     public void StateUpdate(Character player)
     {
+        string equipValue = null;
         switch (stateType)
         {
             case StateType.Attack:
-                valueText.text = player.attack.ToString();
+                valueText.text = player.totalAttack.ToString();
+                if (player.equipAttack > 0)
+                {
+                    equipValue = player.equipAttack.ToString();
+                }
                 break;
             case StateType.Defense:
-                valueText.text = player.defense.ToString();
+                valueText.text = player.totalDefense.ToString();
+                if (player.equipDefense > 0)
+                {
+                    equipValue = player.equipDefense.ToString();
+                }
                 break;
             case StateType.Health:
-                valueText.text = player.health.ToString();
+                valueText.text = player.totalHealth.ToString();
+                if (player.equipHealth > 0)
+                {
+                    equipValue = player.equipHealth.ToString();
+                }
                 break;
             case StateType.Critical:
-                valueText.text = player.critical.ToString();
+                valueText.text = player.totalCritical.ToString();
+                if (player.equipCritical > 0)
+                {
+                    equipValue = player.equipCritical.ToString();
+                }
                 break;
         }
+        valueText.text = valueText.text + (equipValue != null ? $" (+{equipValue})" : string.Empty);
     }
 }

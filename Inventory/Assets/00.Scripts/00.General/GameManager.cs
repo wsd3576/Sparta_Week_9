@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
         List<Item> items = new List<Item>()
         {
             new Item("대충 무기", ItemType.Weapon, 10),
-            new Item("대충 방어구", ItemType.Armor, 10),
+            new Item("대충 방어구",ItemType.Armor, 10),
             new Item("대충 악세서리", ItemType.Accessory, 10),
         };
 
@@ -46,9 +46,6 @@ public class GameManager : MonoBehaviour
             "스탠다드",
             "전창민",
             "스탠다드반의 전창민이다.\n챌린지반에서 스탠다드가 되어 기분이 좋아보인다.\n'챌린지라는거 하나로 기대받는게 부담스러웠거든'",
-            1,
-            0,
-            10,
             1000000,
             10,
             5,

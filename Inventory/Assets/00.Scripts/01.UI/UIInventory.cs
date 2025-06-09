@@ -15,6 +15,8 @@ public class UIInventory : MonoBehaviour
     [SerializeField] private int usedSlotCount = 0;
     [SerializeField] private int slotCount = 120;
     
+    public Sprite[] itemSprites;
+    
     public void AddItem(Item item)
     {
         foreach (UISlot slot in slotList)
@@ -23,6 +25,7 @@ public class UIInventory : MonoBehaviour
             {
                 slot.SetItem(item);
                 usedSlotCount++;
+                usedSlotText.text = usedSlotCount.ToString();
                 return;
             }
         }

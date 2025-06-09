@@ -10,19 +10,44 @@ public class UISlot : MonoBehaviour
     [SerializeField] private Item itemData;
     [SerializeField] private bool isItemExist = false;
     
+    [SerializeField] private Button button;
+    
 
     private void Reset()
     {
         icon = transform.Find("ItemIcon").GetComponent<Image>();
         equipIcon = transform.Find("EquipIcon").gameObject;
+        button = GetComponent<Button>();
         equipIcon.SetActive(false);
     }
 
     private void OnEnable()
     {
         RefreshUI();
+        button.onClick.AddListener(UseItem);
     }
-    
+
+    private void OnDisable()
+    {
+        button.onClick.RemoveAllListeners();
+    }
+
+    private void UseItem()
+    {
+        switch (itemData.equiped)
+        {
+            case false: 
+                GameManager.Instance.Player.EquipItem(itemData);
+                itemData.equiped = true;
+                break;
+            case true :
+                GameManager.Instance.Player.UnequipItem(itemData);
+                itemData.equiped = false;
+                break;
+        }
+        RefreshUI();
+    }
+
     public bool HasItem()
     {
         return isItemExist;
@@ -54,14 +79,16 @@ public class UISlot : MonoBehaviour
         else
         {
             icon.enabled = true;
-            //아이템 아이콘 적용
-            if (itemData.equiped)
+            icon.sprite = itemData.itemSprite;
+            
+            switch (itemData.equiped)
             {
-                equipIcon.SetActive(true);
-            }
-            else
-            {
-                equipIcon.SetActive(false);
+                case true:
+                    equipIcon.SetActive(true);
+                    break;
+                case false:
+                    equipIcon.SetActive(false);
+                    break;
             }
         }
     }
