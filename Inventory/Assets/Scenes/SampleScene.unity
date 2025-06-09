@@ -1191,7 +1191,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a101ce11832a1748b262700016d212a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RandomItems: []
+  randomItems: []
 --- !u!4 &404150508
 Transform:
   m_ObjectHideFlags: 0
@@ -5143,7 +5143,6 @@ MonoBehaviour:
   usedSlotText: {fileID: 2017266834}
   allSlotText: {fileID: 512063113}
   slotPrefab: {fileID: 2492191427208840601, guid: 2260bbd537abd9a429a7dac4ac01a9ee, type: 3}
-  slotList: []
   slotParent: {fileID: 1137467348}
   usedSlotCount: 0
   slotCount: 12
