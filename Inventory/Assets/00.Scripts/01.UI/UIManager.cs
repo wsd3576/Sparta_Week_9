@@ -7,6 +7,7 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager Instance{get; private set;}
     
+    //각 UI별 할당 함수
     [SerializeField] private UIMainMenu mainMenu;
     public UIMainMenu MainMenu => mainMenu;
     [SerializeField] private UIStatus status;
@@ -16,6 +17,7 @@ public class UIManager : MonoBehaviour
     
     private void Reset()
     {
+        //각 UI들 불러오기
         mainMenu = FindAnyObjectByType<UIMainMenu>(FindObjectsInactive.Include);
         status = FindAnyObjectByType<UIStatus>(FindObjectsInactive.Include);
         inventory = FindAnyObjectByType<UIInventory>(FindObjectsInactive.Include);
@@ -31,8 +33,7 @@ public class UIManager : MonoBehaviour
 
         Instance = this;
         
-        status.gameObject.SetActive(false);
-        inventory.gameObject.SetActive(false);
+        //인벤토리 슬롯 구성 함수 호출 및 매인메뉴 열기
         inventory.InitInventoryUI();
         mainMenu.OpenMainMenu();
     }
