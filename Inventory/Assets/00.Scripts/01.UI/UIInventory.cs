@@ -38,7 +38,7 @@ public class UIInventory : MonoBehaviour
             emptySlots.Add(slot);
         }
         //전체 슬롯 수 텍스트 적용
-        allSlotText.text = "/ " + slotCount.ToString();
+        allSlotText.text = " / " + slotCount.ToString();
     }
     
     //아이템 추가
