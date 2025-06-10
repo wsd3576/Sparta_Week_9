@@ -23,7 +23,7 @@ public class PlayerBaseState : IState
     {
         RemoveInputActionCallbacks();
     }
-
+    //입력값에 이벤트 구독
     protected virtual void AddInputActionCallbacks()
     {
         PlayerController input = stateMachine.Player.Input;
@@ -33,7 +33,7 @@ public class PlayerBaseState : IState
         input.inGameActions.Attack.performed += OnAttackPerformed;
         input.inGameActions.Attack.canceled += OnAttackCanceled;
     }
-    
+    //구독한 입력값 제거(새 상태 진입시 중복 구독 가능성)
     protected virtual void RemoveInputActionCallbacks()
     {
         PlayerController input = stateMachine.Player.Input;
