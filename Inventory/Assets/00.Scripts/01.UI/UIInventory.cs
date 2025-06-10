@@ -11,7 +11,7 @@ public class UIInventory : MonoBehaviour
     //슬롯 프리팹, 빈 슬롯 리스트, 차있는 스롯 저장할 딕셔너리(아이템에 따른 슬롯 찾기용), 슬롯을 생성할 부모 개체
     [SerializeField] private UISlot slotPrefab;
     private List<UISlot> emptySlots = new List<UISlot>();
-    private Dictionary<Item, UISlot> itemSlots = new Dictionary<Item, UISlot>();
+    private Dictionary<Item, UISlot> Inventory = new Dictionary<Item, UISlot>();
     [SerializeField] private Transform slotParent;
     //차 있는 슬롯 표기용 과 슬롯 생성용 정수
     [SerializeField] private int usedSlotCount = 0;
@@ -55,7 +55,7 @@ public class UIInventory : MonoBehaviour
         emptySlots.Remove(slot);
         //해당 슬롯에 아이템 적용 후 딕셔너리에 추가
         slot.SetItem(item);
-        itemSlots[item] = slot;
+        Inventory[item] = slot;
         //차 있는 슬롯 카운트 증가 후 텍스트에 적용
         usedSlotCount++;
         usedSlotText.text = usedSlotCount.ToString();
@@ -65,7 +65,7 @@ public class UIInventory : MonoBehaviour
     public void UpdateSlotUI(Item itemData)
     {
         //해당 아템 데이터에서 슬롯을 찾아냄
-        if (itemSlots.TryGetValue(itemData, out UISlot slot))
+        if (Inventory.TryGetValue(itemData, out UISlot slot))
         {
             //슬롯을 찾으면 해당슬롯 표시 업데이트
             slot.RefreshUI();
