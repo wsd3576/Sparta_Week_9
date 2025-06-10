@@ -5,14 +5,15 @@
 ---
 
 ### 캐릭터 관련
-- `Character.cs`: 캐릭터 정보 및 로직 담당
+- `Character.cs`: 캐릭터 정보 및 장비 장착, 해제 로직 담당
 - `GameManager.cs`: 캐릭터 생성 및 참조 담당
 
 ---
 
 ### 아이템 관련
-- `Item.cs`: 아이템 정보 및 기능 정의
+- `Item.cs`: 아이템 정보 관리 담당
 - `GameManager.cs`: 아이템 생성 담당
+- `Character.cs`: 랜덤아이템 추가 테스트 코드
 
 ---
 
